@@ -14,23 +14,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
-
-
-
 
 @Entity
 @Table(name = "tb_produtos") // QUE VAI CRIAR UMA TABELA NO BANCO DE DADOS CHAMADA PRODUTOS GAMER
 
 public class Produto {
 
-	
-	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -50,10 +41,7 @@ public class Produto {
 //DATA DE LANÇAMENTO	
 	@Temporal(TemporalType.TIMESTAMP) //AQUI A PESSOAL TEM QUE INSERIR A DATA, ANO, TEMPO
 	@NotNull
-// IMPORTAR DATE "java.util'
 	private Date lancamento = new java.sql.Date(System.currentTimeMillis());
-	
-	
 	
 //DATA DE CADATRO OU PODE SER DE PESQUISA NA LOJA
 	
@@ -61,15 +49,21 @@ public class Produto {
 	private LocalDateTime data;
 
 	
-	//RELACIONAMENTO COM CATEGORIA
-	//MUITOS PARA UM
+//RELACIONAMENTO COM CATEGORIA
+//MUITOS PARA UM
 		@ManyToOne
 		@JsonIgnoreProperties("produto")
 		private Categoria categoria;
 	
-	
-	//GETTERS AND SETTERS
-	
+//RELACIONAMENTO COM USUARIO
+		
+		@ManyToOne
+		@JsonIgnoreProperties("produto")
+		private Usuario usuario;	
+		
+		
+		
+//GETTERS AND SETTERS
 	
 	public Long getId() {
 		return id;
@@ -118,7 +112,14 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 	
 }
